@@ -26,12 +26,12 @@ import java.util.Scanner;
         System.out.println("Rectangle square: " + rectangleCalculator.calculate(Functor.SQUARE));
         System.out.println("Rectangle perimeter: " + rectangleCalculator.calculate(Functor.PERIMETER));
 
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the radius: ");
         Figure circle = new Figure() {
             private double R;
 
-            public void setR(double r) {
-                R = r;
-            }
+            {R = scanner.nextDouble();}
 
             @Override
             public double square() {
@@ -48,10 +48,9 @@ import java.util.Scanner;
                 return "Circle";
             }
         };
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the radius: ");
-        double radius = scanner.nextDouble();
-        circle.//нет возможности инициализировать метод "setR" из анонимного класса
+
+        System.out.println("Area: " + circle.square());
+        System.out.println("Perimeter: " + circle.perimeter());
 
 
 
