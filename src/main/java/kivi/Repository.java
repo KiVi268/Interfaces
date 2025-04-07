@@ -14,15 +14,15 @@ import java.util.Set;
  * 1.	В классе Repository реализовать метод, принимающий на вход заполненное
  * с клавиатуры множество различных фигур, экземпляр перечисления и вычисляющий фигуру
  * с максимальным значением переданного перечисления
- *
+ * <p>
  * 2.	Реализовать метод, вычисляющий две наиболее удаленные друг от друга фигуры
  * по переданному признаку-перечислению
- *
+ * <p>
  * Задачи на запись коллекции в текстовый файл:
  * 1.	В классе Repository реализовать метод, принимающий на вход имя текстового файла
  * и множество различных фигур и выполняющий сохранение данного множества в файл figures.csv в следующем формате:
  * название_фигуры;параметры_фигуры_через «;»;площадь;периметр
- *
+ * <p>
  * 2.	Реализовать метод, который принимает на вход имя файла, где сохранено множество различных фигур,
  * объект фигуры, который необходимо заменить в файле и объект фигуры на которую требуется произвести замену.
  * Выполняет замену одной фигуры в файле на другую, используя рациональные алгоритмы решения
@@ -99,20 +99,21 @@ public class Repository {
         }
     }
 
-    public void changeFigureInFile(Figure newFigure, Figure oldFigure) throws IOException {
+    public void changeFigureInCSV(Figure newFigure, Figure oldFigure) throws IOException {
         List<String> lines = Files.readAllLines(Paths.get("figures.csv"));
 
         String oldFigureLine = String.valueOf(oldFigure);
         String newFigureLine = String.valueOf(newFigure);
 
-        boolean changed = false;
+        boolean ischanged = false;
         for (int i = 0; i < lines.size(); i++) {
             if (lines.get(i).equals(oldFigureLine)) {
-                changed = true;
+                ischanged = true;
                 lines.set(i, newFigureLine);
                 System.out.println("Changed figure: " + newFigureLine);
                 break;
-            }else {
+            }
+            if (ischanged == false) {
                 System.out.println("not found");
             }
 
