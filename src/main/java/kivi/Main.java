@@ -6,7 +6,11 @@ import kivi.model.Rectangle;
 import kivi.model.Triangle;
 import kivi.util.Calculator;
 
+import java.io.IOException;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
+
 /**6.	В методе main класса Program создать два экземпляра калькулятора с передачей разных фигур,
  *  произвести вычисление площади и периметра данных фигур
  7.	Реализацию интерфейса Figure выполнить в виде анонимного внутреннего класса и передать ее в объект калькулятора.
@@ -16,7 +20,7 @@ import java.util.Scanner;
 **/
 
  public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Calculator triangleCalculator = new Calculator(new Triangle(3, 4, 3));
         Calculator rectangleCalculator = new Calculator(new Rectangle(5, 7));
 
@@ -52,7 +56,17 @@ import java.util.Scanner;
         System.out.println("Area: " + circle.square());
         System.out.println("Perimeter: " + circle.perimeter());
 
+        Set<Figure> figures = new HashSet<>();
+        figures.add(circle);
+        Repository repository = new Repository(figures);
+        Figure maxSquare = repository.findFigureWithMaxProperty(figures,Functor.SQUARE);
+        System.out.println("Max square Figure: " + maxSquare.square() + maxSquare.square()+maxSquare.perimeter());
 
+        Figure[] distantFigures = repository.getMostDistantFigures(figures, Functor.PERIMETER);
+        System.out.println("Most distant figures: " + distantFigures[0].getName() + ", " + distantFigures[1].getName());
+
+        repository.saveFiguresToFile(figures);
+        System.out.println("Figures saved");
 
     }
 }
